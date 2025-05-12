@@ -17,7 +17,7 @@ A continuación se presenta la estructura general del proyecto.
 │ └── transacciones.csv
 ├── glue_jobs/ # scripts de AWS Glue ETL
 │ ├── catalog_data_glue.py
-│ └── trasform_data_glue.py
+│ └── transform_data_glue.py
 ├── scripts/ # Scripts de consultas y utilidad
 │ └── athena_queries.py
 └── upload_s3/ # Lógica para subir a S3
@@ -37,10 +37,9 @@ Dirígete a [Amazon S3](https://aws.amazon.com/es/s3/) y crea un nuevo bucket. R
 Abre [AWS Identity and Access Management (IAM)](https://aws.amazon.com/es/iam/) y crea un nuevo usuario. Agrega los siguientes permisos a este usuario:
 - AmazonAthenaFullAccess
 - AmazonS3FullAccess
-- AWSLambdaBasicExecutionRole
 - CloudWatchLogsFullAccess
 
-Además, crea una clave de acceso para este usuario y obténÑ
+Además, crea una clave de acceso para este usuario y obtén:
 - Access Key ID
 - Secret Access Key
 
@@ -51,7 +50,7 @@ Adicionalmente, debes crear un rol (`glue_role`) que tenga los siguientes permis
 - AWSGlueConsoleFullAccess
 - AmazonS3FullAccess
 
-### 4. Crear archivo con variables de ambiente
+### 4. Crear archivo con variables de entorno
 Dentro del proyecto crea un archivo llamado `.env` con la siguiente estructura:
 ``` bash
 BUCKET_NAME=your_bucket_name
@@ -59,6 +58,7 @@ AWS_ACCESS_KEY_ID=your_aws_access_key_id
 AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
 AWS_REGION=your_aws_region
 ```
+**Importente:** El archivo .env contiene credenciales sensibles (como claves de acceso de AWS). No debes subir este archivo a ningún repositorio público ni compartirlo. Asegúrate de agregar .env a tu archivo .gitignore para evitar su inclusión accidental en sistemas de control de versiones como Git.
 
 ### 5. Instalar librerías requeridas
 Abre una terminal nueva y corre el comando `pip install -r requirements.txt` para instalar las librerías necesarias.
@@ -107,8 +107,8 @@ directamente en el editor de código. Adicionalmente, en la configuración de Jo
 Guarda con el botón `Save` y después córrelo con el botón `Run`. El script realiza las siguientes transformaciones a los datos:
 1. Estandarizar tipo de documento: el tipo de documento se guarda con todas las letras mayúsculas, como "CC" o "NIT".
 2. Estandarizar identificación: se eliminan los caracteres de '-' al número de identificación, un carácter  generalmente presente en las identificaciones tipo NIT.
-3. Estandarizar tipo de energía y tipo de transacción: el tipo de energía se guarda con todos sus carácter en letra minúscula para facilitar las consultas futuras.
-4. Estandarización cantidad comprada y precio: se garantiza que la cantidad comprada y el precio estén almacenados como float.
+3. Estandarizar tipo de energía y tipo de transacción: el tipo de energía se guarda con todos sus caracteres en letra minúscula para facilitar las consultas futuras.
+4. Estandarizar cantidad comprada y precio: se garantiza que la cantidad comprada y el precio estén almacenados como float.
 
 Cuando la ejecución de la tarea termina, el código guarda la información procesada en formato parquet automáticamente en la capa `staged` que sigue la siguiente estructura:
 ``` bash
@@ -125,7 +125,7 @@ your_bucket_name/
        └── transacciones.parquet
 ```
 
- ### 8. Ejecutar detección y Catalogación Automática
+ ### 8. Ejecutar detección y Catalogación Automática en Glue
 Luego, utilizando AWS Glue se crea un proceso que detecta y cataloga automáticamente los esquemas de los datos almacenados en el datalake. Para esto, crea un nuevo job en AWS Glue a 
 partir del script engine y utiliza el código en la ruta `glue_jobs/catalog_data_glue.py`. En la configuración agrega los siguientes componentes:
 - Name: `catalog_data_glue`
@@ -139,9 +139,9 @@ partir del script engine y utiliza el código en la ruta `glue_jobs/catalog_data
  puedan ser consultados fácilmente con queries de SQL en Amazon Athena en el futuro. En adición, debido a que los archivos están organizados por fecha de carga (`load_date`), el Crawler 
  se encarga de crear una nueva columna con este nombre para tener trazabilidad de esta información.
 
-### 9. Consultar información con SQL
-Debido que la información ya está almacenada en la base de datos, es posible realizar consultas en Python fácilmente. En el script  `scripts/athena_queries.py` se utiliza Amazon Athena 
-para hacer las siguientes consultas:
+### 9. Consultar información con Athena
+Debido a que la información ya está almacenada en la base de datos, es posible realizar consultas en Python fácilmente. En el script  `scripts/athena_queries.py` se utiliza 
+[Amazon Athena](https://aws.amazon.com/athena/) para hacer las siguientes consultas:
 - Obtener los clientes con tipo de identificación CC.
 - Consultar las transacciones y agregar columna de precio total pagado.
 - Seleccionar las transacciones que fueron ventas y agruparlas con la información personal de los clientes.
