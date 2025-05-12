@@ -32,15 +32,13 @@ def transformations(df):
     if "identificacion" in df.columns:
         df = df.withColumn("identificacion", F.regexp_replace(F.col("identificacion"), "-", ""))
 
-    # Transformación 3: Estandarizar tipo de energía
+    # Transformación 3: Estandarizar tipo de energía y tipo de transacción
     if "tipo_energia" in df.columns:
         df = df.withColumn("tipo_energia", F.lower(F.col("tipo_energia")))
-
-    # Transformación 4: Tipo de transacción
     if "tipo_transaccion" in df.columns:
         df = df.withColumn("tipo_transaccion", F.lower(F.col("tipo_transaccion")))
 
-    # Transformación 5: cantidad_comprada y precio como float
+    # Transformación 4: cantidad_comprada y precio como float
     if "cantidad_comprada" in df.columns:
         df = df.withColumn("cantidad_comprada", F.col("cantidad_comprada").cast("float"))
     if "precio" in df.columns:
