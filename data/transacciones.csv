@@ -1,0 +1,9 @@
+tipo_transaccion,nombre_entidad,cantidad_comprada,precio,tipo_energia
+venta,Laura Martinez,100,300,eolica
+venta,Industria Solar S.A.,250,700,hidroelectrica
+Compra,Energia Verde S.A.,500,1200,eolica
+venta,Carlos Gomez,150,450,nuclear
+compra,HidroPlus,600,1500,hidroelectrica
+venta,EcoIndustries Ltda,300,850,eolica
+compra,NucleoPower,400,1600,nuclear
+VENTA,Energia Hogar SAS,200,600,hidroelectrica
