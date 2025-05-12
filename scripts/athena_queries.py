@@ -1,8 +1,8 @@
 import os
+import time
 import boto3
 import pandas as pd
 from dotenv import load_dotenv
-import time
 
 # Cargar variables de entorno
 load_dotenv()
