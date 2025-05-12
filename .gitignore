@@ -1,0 +1,12 @@
+# Entornos
+.env
+
+# Archivos temporales del sistema
+__pycache__/
+*.py[cod]
+*.swp
+.DS_Store
+Thumbs.db
+
+# Salidas de logs y datos intermedios
+*.log
