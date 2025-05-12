@@ -61,14 +61,10 @@ Adicionalmente, debes crear un rol (`glue_role`) que tenga los siguientes permis
 - AmazonS3FullAccess
 
 ### 4. Crear archivo con variables de entorno
-Dentro del proyecto crea un archivo llamado `.env` con la siguiente estructura:
-``` bash
-BUCKET_NAME=your_bucket_name
-AWS_ACCESS_KEY_ID=your_aws_access_key_id
-AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
-AWS_REGION=your_aws_region
-```
-**Importante:** El archivo .env contiene credenciales sensibles (como claves de acceso de AWS). No debes subir este archivo a ningún repositorio público ni compartirlo. Asegúrate de agregar .env a tu archivo .gitignore para evitar su inclusión accidental en sistemas de control de versiones como Git.
+Dentro del proyecto crea un archivo llamado `.env` con la estructura que se muestra como ejemplo en `.env.example` para configurar las variables de ambiente.
+
+**Importante:** El archivo .env contiene credenciales sensibles (como claves de acceso de AWS). No debes subir este archivo a ningún repositorio público ni compartirlo. Asegúrate 
+de agregar .env a tu archivo .gitignore para evitar su inclusión accidental en sistemas de control de versiones como Git.
 
 ### 5. Instalar librerías requeridas
 Abre una terminal nueva y corre el comando `pip install -r requirements.txt` para instalar las librerías necesarias.
