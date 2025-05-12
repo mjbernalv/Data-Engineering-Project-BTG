@@ -160,14 +160,31 @@ por si quieren ser consultados en el futuro.
 Luego de tener construido el pipeline con el cual se van a leer y procesar los datos en el datalake se debe crear a infraestructura como código para poder desplegar esta solución en AWS.
 La IaC tiene varios beneficios clave, como lo es tener entornos configurados de manera consistente, reproducir la infraestructura en diferentes ambientes fácilmente, y automatizar el despliegue
 de la infraestructura más rápido. Para el presente trabajo se consideraría usar **Terraform** como herramienta para lograr esto, ya que es versátil (provedor agnóstico) y funciona con un 
-lenguaje declarativo que permite una configuración sencilla.
+lenguaje declarativo que permite una configuración sencilla. Por otra parte, se configura AWS Lake Formation para centralizar el gobierno, la seguridad y compartir los datos alojados en el
+datalake creado.
 
 En la carpeta `iac/` se presenta un estructura tentativa de cómo se podría desarrollar este proceso utilizando Terraform, la cual contiene los siguientes componentes:
 - `variables.tf`: definición de las variables que se usarán en main.tf
 - `terraform.tfvars`: archivo con los valores para las variables (como el nombre del bucket, base de datos, región, etc.).
 - `iam_roles.tf`: definición de los roles y permisos IAM necesarios para interactuar con Glue, Lake Formation, Athena y S3.
 - `main.tf`: definición de recursos de infraestructura (como S3, Glue, Lake Formation, Athena, etc.). En este archivo se siguen los siguientes pasos:
-  - xx
+  - Configurar proveedor de AWS: se define la región donde se desplegarán los recursos.
+  - Se configura el proveedor de AWS con la región donde se desplegarán los recursos.
+  - Se crea un bucket de S3 con el nombre definido en la variable `bucket_name`.
+  - Se bloqua el acceso público al bucker por seguridad de la información-
+  - Se crea la base de datos en el catálogo de Glue.
+  - Se vincula la base de datos de Glue con Lake Formation para centralizar el gobierno, la seguridad y compartir los datos almacenados en el datalake.
+  - Se configura el trabajo de Glue para procesar y transformar los datos con el script de Python.
+  - Se configuran con permisos de Lake Formation para tener permisos de escritura y lectura en la base de datos para el rol de Glue.
+  - Se asignan permisos de lectura a los datos almacenados en el bucket de S3 en la carpeta `staged/`.
+  - Se define un grupo de trabajo de Athena para ejecutar consultas SQL y almacenar resultados en S3.
+
+De esta forma, después de que se realice una revisión sobre la IaC creada, se podría desplegar esta herramienta en AWS utilizando Terraform con los siguientes comandos:
+``` bash
+terraform init
+terraform plan
+terraform apply
+```
 
 
 ## Referencias
