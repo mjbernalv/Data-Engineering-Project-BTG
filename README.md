@@ -58,7 +58,7 @@ AWS_ACCESS_KEY_ID=your_aws_access_key_id
 AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
 AWS_REGION=your_aws_region
 ```
-**Importente:** El archivo .env contiene credenciales sensibles (como claves de acceso de AWS). No debes subir este archivo a ningún repositorio público ni compartirlo. Asegúrate de agregar .env a tu archivo .gitignore para evitar su inclusión accidental en sistemas de control de versiones como Git.
+**Importante:** El archivo .env contiene credenciales sensibles (como claves de acceso de AWS). No debes subir este archivo a ningún repositorio público ni compartirlo. Asegúrate de agregar .env a tu archivo .gitignore para evitar su inclusión accidental en sistemas de control de versiones como Git.
 
 ### 5. Instalar librerías requeridas
 Abre una terminal nueva y corre el comando `pip install -r requirements.txt` para instalar las librerías necesarias.
