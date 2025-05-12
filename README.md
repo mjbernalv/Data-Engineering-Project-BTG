@@ -8,9 +8,9 @@ información de proveedores, clientes y transacciones en archivos CSV.
 ## Solución
 Para llevar a cabo este proyecto, se plantea la siguiente solución:
 - Crear una estrategia de datalake en S3 que permite cargar la información de los archivos CSV.
-- Realiza transformaciones básicas de los datos y los almacena en una zona procesada utilizando AWS Glue.
-- Configura un proceso que detecta y cataloga automáticamente los esquemas de los datos almacenados en el datalake.
-- Permite realizar consultas en SQL sobre los datos que han sido transformados utilizando Amazon Athena.
+- Realizar transformaciones básicas de los datos y los almacena en una zona procesada utilizando AWS Glue.
+- Configurar un proceso que detecta y cataloga automáticamente los esquemas de los datos almacenados en el datalake.
+- Hacer consultas en SQL sobre los datos que han sido transformados utilizando Amazon Athena.
 
 ## Estructura del proyecto
 A continuación se presenta la estructura general del proyecto.
