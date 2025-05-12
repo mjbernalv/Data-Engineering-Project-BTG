@@ -1,4 +1,5 @@
 # Proyecto Ingeniería de datos
+#### Por: María José Bernal Vélez
 
 Una compañía comercializadora de energía compra la electricidad a los generadores en el mercado mayoritario, donde después de una serie de contratos y control riesgos de precios esta se 
 vende a los usuarios finales que pueden ser clientes residenciales, comerciales o industriales. El sistema de la compañía que administra este producto tiene la capacidad de exportar la 
