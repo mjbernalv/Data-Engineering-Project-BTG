@@ -167,7 +167,7 @@ En la carpeta `iac/` se presenta un estructura tentativa de cómo se podría des
 - `terraform.tfvars`: archivo con los valores para las variables (como el nombre del bucket, base de datos, región, etc.).
 - `iam_roles.tf`: definición de los roles y permisos IAM necesarios para interactuar con Glue, Lake Formation, Athena y S3.
 - `main.tf`: definición de recursos de infraestructura (como S3, Glue, Lake Formation, Athena, etc.). En este archivo se siguen los siguientes pasos:
-  - 
+  - xx
 
 
 ## Referencias
