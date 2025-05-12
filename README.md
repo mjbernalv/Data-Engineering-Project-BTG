@@ -34,7 +34,7 @@ Inicia sesión con tu cuenta de AWS [aquí](https://aws.amazon.com/).
 Dirígete a [Amazon S3](https://aws.amazon.com/es/s3/) y crea un nuevo bucket. Recuerda que el nombre debe ser único dentro del espacio de nombres global.
 
 ### 3. Configurar perfiles y claves de acceso
-Abre [Amazon Identity and Access Management (IAM)](https://aws.amazon.com/es/iam/) y crea un nuevo usuario. Agrega los siguientes permisos a este usuario:
+Abre [AWS Identity and Access Management (IAM)](https://aws.amazon.com/es/iam/) y crea un nuevo usuario. Agrega los siguientes permisos a este usuario:
 - AmazonAthenaFullAccess
 - AmazonS3FullAccess
 - AWSLambdaBasicExecutionRole
