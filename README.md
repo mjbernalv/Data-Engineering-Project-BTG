@@ -19,6 +19,12 @@ A continuación se presenta la estructura general del proyecto.
 ├── glue_jobs/ # scripts de AWS Glue ETL
 │ ├── catalog_data_glue.py
 │ └── transform_data_glue.py
+├── iac/ # Terraform infrastructure as code
+│ ├── iam_roles.tf
+│ ├── main.tf
+│ ├── outputs.tf
+│ ├── terraform.tfvars
+│ └── variables.tf
 ├── scripts/ # Scripts de consultas y utilidad
 │ └── athena_queries.py
 └── upload_s3/ # Lógica para subir a S3
@@ -150,5 +156,20 @@ Debido a que la información ya está almacenada en la base de datos, es posible
 El script imprime en la terminal los resultados de las consultas y adicionalmente guarda en una nueva capa del datalake (carpeta `athena/`) los resultados de las consultas en formato CSV 
 por si quieren ser consultados en el futuro.
 
+## Siguientes pasos
+Luego de tener construido el pipeline con el cual se van a leer y procesar los datos en el datalake se debe crear a infraestructura como código para poder desplegar esta solución en AWS.
+La IaC tiene varios beneficios clave, como lo es tener entornos configurados de manera consistente, reproducir la infraestructura en diferentes ambientes fácilmente, y automatizar el despliegue
+de la infraestructura más rápido. Para el presente trabajo se consideraría usar **Terraform** como herramienta para lograr esto, ya que es versátil (provedor agnóstico) y funciona con un 
+lenguaje declarativo que permite una configuración sencilla.
+
+En la carpeta `iac/` se presenta un estructura tentativa de cómo se podría desarrollar este proceso utilizando Terraform, la cual contiene los siguientes componentes:
+- `variables.tf`: definición de las variables que se usarán en main.tf
+- `terraform.tfvars`: archivo con los valores para las variables (como el nombre del bucket, base de datos, región, etc.).
+- `iam_roles.tf`: definición de los roles y permisos IAM necesarios para interactuar con Glue, Lake Formation, Athena y S3.
+- `main.tf`: definición de recursos de infraestructura (como S3, Glue, Lake Formation, Athena, etc.). En este archivo se siguen los siguientes pasos:
+  - 
+
+
 ## Referencias
 - [Documentación de AWS](https://docs.aws.amazon.com/)
+- [Documentación de Terraform]([https://terraform-docs.io/](https://developer.hashicorp.com/terraform/docs))
