@@ -189,4 +189,4 @@ terraform apply
 
 ## Referencias
 - [Documentación de AWS](https://docs.aws.amazon.com/)
-- [Documentación de Terraform]([https://terraform-docs.io/](https://developer.hashicorp.com/terraform/docs))
+- [Documentación de Terraform](https://developer.hashicorp.com/terraform/docs)
