@@ -159,9 +159,9 @@ por si quieren ser consultados en el futuro.
 ## Próximos pasos
 Luego de tener construido el pipeline con el cual se van a leer y procesar los datos en el datalake se debe crear a infraestructura como código para poder desplegar esta solución en AWS.
 La IaC tiene varios beneficios clave, como lo es tener entornos configurados de manera consistente, reproducir la infraestructura en diferentes ambientes fácilmente, y automatizar el despliegue
-de la infraestructura más rápido. Para el presente trabajo se consideraría usar **Terraform** como herramienta para lograr esto, ya que es versátil (provedor agnóstico) y funciona con un 
-lenguaje declarativo que permite una configuración sencilla. Por otra parte, se configura AWS Lake Formation para centralizar el gobierno, la seguridad y compartir los datos alojados en el
-datalake creado.
+de la infraestructura más rápido. Para el presente trabajo se consideraría usar [Terraform](https://developer.hashicorp.com/terraform/docs) como herramienta para lograr esto, ya que es versátil 
+(provedor agnóstico) y funciona con un lenguaje declarativo que permite una configuración sencilla. Por otra parte, se configura AWS Lake Formation para centralizar el gobierno, la seguridad y 
+compartir los datos alojados en el datalake creado.
 
 En la carpeta `iac/` se presenta un estructura tentativa de cómo se podría desarrollar este proceso utilizando Terraform, la cual contiene los siguientes componentes:
 - `variables.tf`: definición de las variables que se usarán en main.tf
