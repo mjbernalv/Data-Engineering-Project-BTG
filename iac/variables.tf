@@ -1,4 +1,3 @@
-# variables.tf
 variable "aws_region" {
   default = "us-east-2" # cambiar a region de aws real
 }
