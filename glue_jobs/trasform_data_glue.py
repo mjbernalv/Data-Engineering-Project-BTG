@@ -1,14 +1,14 @@
 import sys
-from awsglue.transforms import *
-from awsglue.utils import getResolvedOptions
-from pyspark.context import SparkContext
-from awsglue.context import GlueContext
-from awsglue.job import Job
-from awsglue.dynamicframe import DynamicFrame
-from pyspark.sql import functions as F
-from pyspark.sql.types import *
-import datetime as dt
 import boto3
+import datetime as dt
+from awsglue.job import Job
+from awsglue.transforms import *
+from awsglue.context import GlueContext
+from pyspark.context import SparkContext
+from awsglue.utils import getResolvedOptions
+from awsglue.dynamicframe import DynamicFrame
+from pyspark.sql.types import *
+from pyspark.sql import functions as F
 
 # Parámetros
 args = getResolvedOptions(sys.argv, ['JOB_NAME', 'BUCKET_NAME'])
@@ -49,32 +49,25 @@ def transformations(df):
     return df
 
 def transform_data():
-    # Leer datos de la capa raw
-    path = f"s3://{BUCKET_NAME}/raw/load_date={LOAD_DATE}"
+    files = ['clientes', 'proveedores', 'transacciones']
     
-    # Leer todos los archivos en el directorio
-    file_list = sc._jvm.org.apache.hadoop.fs.Path(f"s3://{BUCKET_NAME}/raw/load_date={LOAD_DATE}")
-    hadoop_fs = file_list.getFileSystem(sc._jsc.hadoopConfiguration())
-    statuses = hadoop_fs.listStatus(file_list)
-    files = [status.getPath().getName() for status in statuses]
-
-    # # Eliminar archivos existentes en la carpeta de fecha de carga
-    s3_client = boto3.client('s3')
-    existing_files = s3_client.list_objects_v2(
-            Bucket=BUCKET_NAME,
-            Prefix=f"staged/load_date={LOAD_DATE}/"
-    )
-    if 'Contents' in existing_files:
-        for obj in existing_files['Contents']:
-            s3_client.delete_object(
+    for entity_name in files:
+        # Eliminar archivos existentes en la carpeta de fecha de carga
+        s3_client = boto3.client('s3')
+        existing_files = s3_client.list_objects_v2(
                 Bucket=BUCKET_NAME,
-                Key=obj['Key']
-            )
+                Prefix=f"staged/load_date={LOAD_DATE}/"
+        )
+        if 'Contents' in existing_files:
+            for obj in existing_files['Contents']:
+                s3_client.delete_object(
+                    Bucket=BUCKET_NAME,
+                    Key=obj['Key']
+                )
 
-    for file in files:
-        file_path = f"{path}/{file}"
-        entity_name = file.split('.')[0]
-    
+        # Leer datos de la capa raw
+        file_path = f"s3://{BUCKET_NAME}/raw/{entity_name}/load_date={LOAD_DATE}/{entity_name}.csv"
+        
         # Crear DynamicFrame de los datos fuente
         dyf = glueContext.create_dynamic_frame.from_options(
             connection_type="s3",
@@ -85,13 +78,13 @@ def transform_data():
                 "separator": ","
             }
         )
-    
+        
         # Convertir a DataFrame para realizar transformaciones
         df = dyf.toDF()
-    
+        
         # Aplicar transformaciones específicas
         df = transformations(df).coalesce(1)
-    
+        
         # Convertir de vuelta a DynamicFrame
         transformed_dyf = DynamicFrame.fromDF(df, glueContext, f"{entity_name}_staged")
 
@@ -111,7 +104,7 @@ def transform_data():
             Bucket=BUCKET_NAME,
             Prefix=f"temp/{entity_name}_{LOAD_DATE}"
         )
-        
+            
         parquet_file = None
         for obj in response.get('Contents', []):
             if obj['Key'].endswith('.parquet'):
@@ -119,7 +112,7 @@ def transform_data():
                 break
         
         if parquet_file:
-            dest_key = f"staged/load_date={LOAD_DATE}/{entity_name}.parquet"
+            dest_key = f"staged/{entity_name}/load_date={LOAD_DATE}/{entity_name}.parquet"
             s3_client.copy_object(
                 Bucket=BUCKET_NAME,
                 CopySource={'Bucket': BUCKET_NAME, 'Key': parquet_file},
