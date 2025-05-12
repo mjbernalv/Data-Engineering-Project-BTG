@@ -5,9 +5,12 @@ Una compañía comercializadora de energía compra la electricidad a los generad
 vende a los usuarios finales que pueden ser clientes residenciales, comerciales o industriales. El sistema de la compañía que administra este producto tiene la capacidad de exportar la 
 información de proveedores, clientes y transacciones en archivos CSV.
 
-Este proyecto crea una estrategia de datalake en S3 que permite cargar la información de los archivos CSV, realiza transformaciones básicas de los datos y los almacena en una zona procesada
-utilizando AWS Glue, crea un proceso que detecta y cataloga automáticamente los esquemas de los datos almacenados en el datalake, y finalmente permite realizar consultas en SQL sobre los 
-datos que han sido transformados utilizando Amazon Athena.
+## Solución
+Para llevar a cabo este proyecto, se plantea la siguiente solución:
+- Crear una estrategia de datalake en S3 que permite cargar la información de los archivos CSV.
+- Realiza transformaciones básicas de los datos y los almacena en una zona procesada utilizando AWS Glue.
+- Configura un proceso que detecta y cataloga automáticamente los esquemas de los datos almacenados en el datalake.
+- Permite realizar consultas en SQL sobre los datos que han sido transformados utilizando Amazon Athena.
 
 ## Estructura del proyecto
 A continuación se presenta la estructura general del proyecto.
