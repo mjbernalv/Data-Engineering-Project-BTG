@@ -155,6 +155,9 @@ Debido a que la información ya está almacenada en la base de datos, es posible
 El script imprime en la terminal los resultados de las consultas y adicionalmente guarda en una nueva capa del datalake (carpeta `athena/`) los resultados de las consultas en formato CSV 
 por si quieren ser consultados en el futuro.
 
+Por ejemplo, al consultar la tabla de clientes en Amazon Athena se obtiene el siguiente resultado:
+![Resultado query SQL](evidence/database.png)
+
 ## Próximos pasos
 Luego de tener construido el pipeline con el cual se van a leer y procesar los datos en el datalake se debe crear a infraestructura como código para poder desplegar esta solución en AWS.
 
