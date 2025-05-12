@@ -156,7 +156,7 @@ Debido a que la información ya está almacenada en la base de datos, es posible
 El script imprime en la terminal los resultados de las consultas y adicionalmente guarda en una nueva capa del datalake (carpeta `athena/`) los resultados de las consultas en formato CSV 
 por si quieren ser consultados en el futuro.
 
-## Siguientes pasos
+## Próximos pasos
 Luego de tener construido el pipeline con el cual se van a leer y procesar los datos en el datalake se debe crear a infraestructura como código para poder desplegar esta solución en AWS.
 La IaC tiene varios beneficios clave, como lo es tener entornos configurados de manera consistente, reproducir la infraestructura en diferentes ambientes fácilmente, y automatizar el despliegue
 de la infraestructura más rápido. Para el presente trabajo se consideraría usar **Terraform** como herramienta para lograr esto, ya que es versátil (provedor agnóstico) y funciona con un 
