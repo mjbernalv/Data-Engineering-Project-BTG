@@ -132,7 +132,7 @@ your_bucket_name/
        └── transacciones.parquet
 ```
 
- ### 8. Ejecutar detección y Catalogación Automática en Glue
+ ### 8. Ejecutar detección y catalogación Automática en Glue
 Luego, utilizando AWS Glue se crea un proceso que detecta y cataloga automáticamente los esquemas de los datos almacenados en el datalake. Para esto, crea un nuevo job en AWS Glue a 
 partir del script engine y utiliza el código en la ruta `glue_jobs/catalog_data_glue.py`. En la configuración agrega los siguientes componentes:
 - Name: `catalog_data_glue`
