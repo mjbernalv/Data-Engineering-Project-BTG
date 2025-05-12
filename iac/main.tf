@@ -95,27 +95,7 @@ resource "aws_lakeformation_permissions" "s3_permissions" {
   ]
 }
 
-# Compartir datos entre cuentas de AWS (opcional)
-resource "aws_lakeformation_data_share" "data_share" {
-  name        = "data-share-to-other-account"
-  share_format = "PARQUET"  # Puedes elegir el formato que prefieras (Parquet, CSV, etc.)
-
-  # Compartir con otra cuenta de AWS
-  principals = [
-    {
-      data = {
-        principal = "arn:aws:iam::<other_account_id>:role/SomeIAMRole"
-      }
-    }
-  ]
-
-  database {
-    catalog_id = aws_glue_catalog_database.catalog_db.catalog_id
-    name       = var.database_name
-  }
-}
-
-# Configurar grupo de trabajo de Athena (opcional)
+# Configurar grupo de trabajo de Athena
 resource "aws_athena_workgroup" "main" {
   name = "main"
 
